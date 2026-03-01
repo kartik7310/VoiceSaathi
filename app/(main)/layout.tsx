@@ -1,12 +1,16 @@
 import React from 'react'
 import DashboardProvider from './provider'
 
-const layout = ({ children }: { children: React.ReactNode }) => {
+
+const Dashboardlayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <DashboardProvider>
-            <div>{children}</div>
+            <div className='p-10'>
+                <div>{children}</div>
+            </div>
         </DashboardProvider>
     )
+
 }
 
-export default layout
+export default Dashboardlayout

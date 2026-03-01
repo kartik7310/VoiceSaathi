@@ -4,8 +4,7 @@ import supabase from '@/services/superbaseClinet'
 import UserDetailsContext from '@/context/UserDetailsContext'
 
 const Provider = ({ children }: { children: React.ReactNode }) => {
-    const [user, setUser] = useState(null)
-    console.log("user", user)
+    const [user, setUser] = useState<any>(null)
     useEffect(() => {
         createNewUser()
     }, [])
@@ -24,6 +23,8 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
                     }]).select()
                     if (data) setUser(data[0])
                     if (error) console.log(error.message)
+                } else if (User) {
+                    setUser(User[0])
                 }
 
             }
@@ -38,6 +39,6 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
 
 export default Provider
 
-export const useUserDetails = () => {
+export const useAuth = () => {
     return useContext(UserDetailsContext)
 }

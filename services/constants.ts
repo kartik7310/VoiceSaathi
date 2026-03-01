@@ -1,4 +1,4 @@
-import { Layout, Calendar, List, WalletCards } from "lucide-react";
+import { Layout, Calendar, List, WalletCards, Settings, User, Code, BaggageClaim, LucideLoader } from "lucide-react";
 
 export const sidebarMenu = [
     {
@@ -23,7 +23,30 @@ export const sidebarMenu = [
     },
     {
         title: "Settings",
-        icon: "Settings",
+        icon: Settings,
         path: "/settings",
+    },
+]
+
+export const interviewType = [
+    {
+        title: "Technical",
+        icon: Code,
+    },
+    {
+        title: "Behavioral",
+        icon: User,
+    },
+    {
+        title: "HR",
+        icon: User,
+    },
+    {
+        title: "Experience",
+        icon: BaggageClaim,
+    },
+    {
+        title: "Problem Solving",
+        icon: LucideLoader,
     },
 ]

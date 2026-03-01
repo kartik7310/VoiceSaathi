@@ -93,3 +93,21 @@ OUTPUT FORMAT:
     }
   ]
 }`
+
+export const extractJSON = (text: string) => {
+    let depth = 0;
+    let start = -1;
+
+    for (let i = 0; i < text.length; i++) {
+        if (text[i] === "{") {
+            if (depth === 0) start = i;
+            depth++;
+        } else if (text[i] === "}") {
+            depth--;
+            if (depth === 0 && start !== -1) {
+                return text.slice(start, i + 1);
+            }
+        }
+    }
+    return null;
+}

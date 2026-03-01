@@ -70,12 +70,16 @@ const FormContainer = ({ onHandleChangeInput, GoToNextStep }: any) => {
 
                             <SelectContent>
                                 <SelectGroup>
+                                    <SelectItem value="5 min">5 min</SelectItem>
+                                    <SelectItem value="10 min">10 min</SelectItem>
                                     <SelectItem value="15 min">15 min</SelectItem>
+                                    <SelectItem value="20 min">20 min</SelectItem>
+                                    <SelectItem value="25 min">25 min</SelectItem>
                                     <SelectItem value="30 min">30 min</SelectItem>
-                                    <SelectItem value="45 min">45 min</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
+
                     </div>
 
                     <div className="space-y-2">

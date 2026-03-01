@@ -7,12 +7,16 @@ import { Loader2 } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
 import QuestionContainerList from './QuestionContainerList'
-
+import supabase from '@/services/superbaseClinet'
+import { useAuth } from '@/app/provider'
+import { v4 as uuidv4 } from 'uuid';
 const QuestionsList = ({ formData }: any) => {
     const [loading, setLoading] = useState(false);
     const [questionsList, setQuestionsList] = useState([]);
     console.log("questionsList", questionsList);
     const hasFetched = useRef(false);
+    const { user } = useAuth();
+    const interviewId = uuidv4();
     useEffect(() => {
         if (formData && !hasFetched.current) {
             hasFetched.current = true;
@@ -21,7 +25,6 @@ const QuestionsList = ({ formData }: any) => {
     }, [formData])
     const GenerateQuesions = async () => {
         setLoading(true);
-
         try {
             const res = await axios.post("/api/ai-model", formData);
 
@@ -41,27 +44,51 @@ const QuestionsList = ({ formData }: any) => {
             setLoading(false);
         }
     };
+    const handleFinish = async () => {
+        const { data, error } = await supabase.from("Interviews").insert([
+            {
+                ...formData,
+                questions: questionsList,
+                userEmail: user?.email,
+                interview_id: interviewId,
+            }
+        ]);
+        if (error) {
+            toast("Error creating interview");
+        } else {
+            toast("Interview created successfully");
+        }
+    }
     return (
-        <div className="flex items-center justify-center w-full py-12">
+        <div className="w-full py-12">
             {loading && (
-                <div className="flex items-center gap-4 rounded-xl border border-blue-200 bg-blue-50 px-6 py-5 shadow-sm">
-                    <div className="flex items-center justify-center">
+                <div className="flex items-center justify-center">
+                    <div className="flex items-center gap-4 rounded-xl border border-blue-200 bg-blue-50 px-6 py-5 shadow-sm">
                         <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
+
+                        <div className="space-y-1">
+                            <h2 className="text-sm font-semibold text-blue-900">
+                                Generating Interview Questions
+                            </h2>
+                            <p className="text-sm text-blue-700">
+                                Our AI is creating questions based on your job description.
+                                This may take a few seconds.
+                            </p>
+                        </div>
                     </div>
-                    <div className="space-y-1">
-                        <h2 className="text-sm font-semibold text-blue-900">
-                            Generating Interview Questions
-                        </h2>
-                        <p className="text-sm text-blue-700">
-                            Our AI is creating questions based on your job description.
-                            This may take a few seconds.
-                        </p>
+                </div>
+            )}
+            {!loading && questionsList.length > 0 && (
+                <div className="space-y-6">
+
+                    <QuestionContainerList questionsList={questionsList} />
+                    <div className="flex justify-end">
+                        <Button className="px-6" onClick={handleFinish}>
+                            Finish →
+                        </Button>
                     </div>
 
                 </div>
-            )}
-            {questionsList.length > 0 && (
-                <QuestionContainerList questionsList={questionsList} />
             )}
 
         </div>

@@ -38,11 +38,7 @@ const QuestionContainerList = ({ questionsList }: any) => {
                         </div>
                     ))}
                 </div>
-                <div className="flex justify-end pt-2">
-                    <Button className="px-6">
-                        Start Interview →
-                    </Button>
-                </div>
+
 
             </div>
         </div>

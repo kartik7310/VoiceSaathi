@@ -10,19 +10,22 @@ import QuestionContainerList from './QuestionContainerList'
 import supabase from '@/services/superbaseClinet'
 import { useAuth } from '@/app/provider'
 import { v4 as uuidv4 } from 'uuid';
+
 const QuestionsList = ({ formData }: any) => {
     const [loading, setLoading] = useState(false);
     const [questionsList, setQuestionsList] = useState([]);
-    console.log("questionsList", questionsList);
+    const [savingLoading, setSavingLoading] = useState(false);
     const hasFetched = useRef(false);
     const { user } = useAuth();
     const interviewId = uuidv4();
+
     useEffect(() => {
         if (formData && !hasFetched.current) {
             hasFetched.current = true;
             GenerateQuesions()
         }
     }, [formData])
+
     const GenerateQuesions = async () => {
         setLoading(true);
         try {
@@ -45,18 +48,23 @@ const QuestionsList = ({ formData }: any) => {
         }
     };
     const handleFinish = async () => {
-        const { data, error } = await supabase.from("Interviews").insert([
-            {
-                ...formData,
-                questions: questionsList,
-                userEmail: user?.email,
-                interview_id: interviewId,
-            }
-        ]);
-        if (error) {
-            toast("Error creating interview");
-        } else {
+        try {
+            setSavingLoading(true);
+            await supabase.from("Interviews").insert([
+                {
+                    ...formData,
+                    questions: questionsList,
+                    userEmail: user?.email,
+                    interview_id: interviewId,
+                }
+            ]);
+            setSavingLoading(false);
             toast("Interview created successfully");
+        } catch (error: any) {
+            console.log(error.message);
+            toast("Error creating interview");
+        } finally {
+            setSavingLoading(false);
         }
     }
     return (
@@ -83,8 +91,9 @@ const QuestionsList = ({ formData }: any) => {
 
                     <QuestionContainerList questionsList={questionsList} />
                     <div className="flex justify-end">
-                        <Button className="px-6" onClick={handleFinish}>
-                            Finish →
+                        <Button className="px-6" onClick={handleFinish} disabled={savingLoading}>
+                            {savingLoading && <Loader2 className="h-6 w-6 animate-spin text-blue-600" />}
+                            Finish
                         </Button>
                     </div>
 

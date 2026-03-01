@@ -1,10 +1,12 @@
 
 "use client"
+import { Button } from '@/components/ui/button'
 import { extractJSON } from '@/services/constants'
 import axios from 'axios'
 import { Loader2 } from 'lucide-react'
 import React, { useEffect, useRef, useState } from 'react'
 import { toast } from 'sonner'
+import QuestionContainerList from './QuestionContainerList'
 
 const QuestionsList = ({ formData }: any) => {
     const [loading, setLoading] = useState(false);
@@ -58,6 +60,10 @@ const QuestionsList = ({ formData }: any) => {
 
                 </div>
             )}
+            {questionsList.length > 0 && (
+                <QuestionContainerList questionsList={questionsList} />
+            )}
+
         </div>
     )
 }

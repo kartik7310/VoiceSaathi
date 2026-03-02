@@ -11,7 +11,7 @@ import supabase from '@/services/superbaseClinet'
 import { useAuth } from '@/app/provider'
 import { v4 as uuidv4 } from 'uuid';
 
-const QuestionsList = ({ formData }: any) => {
+const QuestionsList = ({ formData, onCreateInterview }: any) => {
     const [loading, setLoading] = useState(false);
     const [questionsList, setQuestionsList] = useState([]);
     const [savingLoading, setSavingLoading] = useState(false);
@@ -58,6 +58,7 @@ const QuestionsList = ({ formData }: any) => {
                     interview_id: interviewId,
                 }
             ]);
+            onCreateInterview(interviewId);
             setSavingLoading(false);
             toast("Interview created successfully");
         } catch (error: any) {
@@ -93,7 +94,7 @@ const QuestionsList = ({ formData }: any) => {
                     <div className="flex justify-end">
                         <Button className="px-6" onClick={handleFinish} disabled={savingLoading}>
                             {savingLoading && <Loader2 className="h-6 w-6 animate-spin text-blue-600" />}
-                            Finish
+                            Create Interview Link and Finish
                         </Button>
                     </div>
 

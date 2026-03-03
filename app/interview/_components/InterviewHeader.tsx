@@ -5,7 +5,6 @@ import { Clock, LogOut } from "lucide-react"
 import { interviewDataContext } from "@/context/interviewDataContext"
 const InterviewHeader = () => {
     const { interviwQuestions } = useContext(interviewDataContext)
-    console.log("interviewQuestion", interviwQuestions);
 
     return (
         <header className="w-full border-b bg-white px-6 py-4 shadow-sm">

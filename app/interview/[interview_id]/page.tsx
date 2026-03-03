@@ -1,18 +1,25 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Clock, Building2, Video, Settings } from "lucide-react"
+import { Clock, Building2, Video, Settings, Loader2 } from "lucide-react"
 import { useParams } from "next/navigation"
 import supabase from "@/services/superbaseClinet"
 import { toast } from "sonner"
+import { interviewDataContext } from "@/context/interviewDataContext"
+import { useRouter } from "next/navigation"
 
 export default function JoinInterviewPage() {
+    const router = useRouter()
     const { interview_id } = useParams()
     const [interview, setInterview] = useState<any>()
     const [userName, setUserName] = useState("")
     const [loading, setLoading] = useState(false)
+    const { interviwQuestions, setInterviwQuestions } = useContext(interviewDataContext)
+
+    console.log("interviwQuestions", interviwQuestions);
+
     useEffect(() => {
         interview_id && getInterviewDetails()
     }, [interview_id])
@@ -36,7 +43,29 @@ export default function JoinInterviewPage() {
         }
     }
 
+    const onJoinInterview = async () => {
+        try {
+            setLoading(true)
+            const { data, error } = await supabase
+                .from('Interviews')
+                .select("questions")
+                .eq('interview_id', interview_id)
+            if (data) {
+                setInterviwQuestions({
+                    questionList: data[0],
+                    userName: userName
+                })
+            }
+            setLoading(false)
+            router.push(`/interview/${interview_id}/start`)
 
+        } catch (error: any) {
+            console.log(error.message);
+
+        } finally {
+            setLoading(false)
+        }
+    }
     return (
         <div >
             {/* Card */}
@@ -107,15 +136,16 @@ export default function JoinInterviewPage() {
 
                     {/* Actions */}
                     <div className="space-y-3">
-                        <Button className="w-full flex gap-2">
+                        <Button className="w-full flex gap-2" disabled={loading || !userName} onClick={onJoinInterview}>
                             <Video size={18} />
+                            {loading && <Loader2 className="animate-spin" />}
                             Join Interview
                         </Button>
 
                         <Button
                             variant="outline"
                             className="w-full flex gap-2"
-                            disabled={loading || !userName}
+
                         >
                             <Settings size={18} />
                             Test Audio & Video

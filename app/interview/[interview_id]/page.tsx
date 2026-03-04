@@ -15,6 +15,7 @@ export default function JoinInterviewPage() {
     const { interview_id } = useParams()
     const [interview, setInterview] = useState<any>()
     const [userName, setUserName] = useState("")
+    const [userEmail, setUserEmail] = useState("")
     const [loading, setLoading] = useState(false)
     const { interviwQuestions, setInterviwQuestions } = useContext(interviewDataContext)
 
@@ -53,7 +54,8 @@ export default function JoinInterviewPage() {
             if (data) {
                 setInterviwQuestions({
                     questionList: data[0],
-                    userName: userName
+                    userName: userName,
+                    userEmail: userEmail
                 })
             }
             setLoading(false)
@@ -119,6 +121,12 @@ export default function JoinInterviewPage() {
                             Enter your full name
                         </label>
                         <Input placeholder="e.g., John Smith" value={userName} onChange={(e) => setUserName(e.target.value)} />
+                    </div>
+                    <div className="space-y-2">
+                        <label className="text-sm font-medium text-gray-700">
+                            Enter your email
+                        </label>
+                        <Input placeholder="e.g., [EMAIL_ADDRESS]" value={userEmail} onChange={(e) => setUserEmail(e.target.value)} />
                     </div>
 
                     {/* Instructions Box */}

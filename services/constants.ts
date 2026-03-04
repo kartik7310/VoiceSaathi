@@ -111,3 +111,30 @@ export const extractJSON = (text: string) => {
     }
     return null;
 }
+
+export const FEEDBACK_PROMPT = `{{conversation}}
+
+Based ONLY on this interview conversation between assistant and user, evaluate the candidate's performance.
+
+Rules:
+- Do NOT assume skills if they are not demonstrated in the conversation.
+- If the conversation is very short or lacks technical discussion, give LOW ratings (1–3).
+- Only evaluate based on actual evidence in the conversation.
+- Be realistic and strict in scoring.
+
+Return response ONLY in valid JSON format (no explanation, no markdown):
+
+{
+  "feedback": {
+    "rating": {
+      "technicalSkills": <number between 1 and 10>,
+      "communication": <number between 1 and 10>,
+      "problemSolving": <number between 1 and 10>,
+      "experience": <number between 1 and 10>
+    },
+    "summary": "<exactly 3 lines summarizing the interview>",
+    "Recommendation": "<Recommended or Not Recommended>",
+    "RecommendationMsg": "<one short line explaining the decision>"
+  }
+}
+`;

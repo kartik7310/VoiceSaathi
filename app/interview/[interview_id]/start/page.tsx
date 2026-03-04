@@ -9,13 +9,18 @@ import Vapi from "@vapi-ai/web"
 import { interviewDataContext } from "@/context/interviewDataContext"
 import AleartDialogBox from "./_components/AleartDialogBox"
 import { toast } from "sonner"
+import axios from "axios"
+import supabase from "@/services/superbaseClinet"
+import { useParams, useRouter } from "next/navigation"
 
 const Page = () => {
+    const router = useRouter()
+    const { interview_id } = useParams()
     const { user } = useAuth()
     const { interviwQuestions } = useContext(interviewDataContext)
     const [speaker, setSpeaker] = useState<"ai" | "user" | "thinking" | null>(null)
     const [callStatus, setCallStatus] = useState<"idle" | "connecting" | "active" | "ended">("idle")
-    const [activeUser, setActiveUser] = useState(false)
+    const [conversation, setConversation] = useState<any[]>([])
     const vapiRef = useRef<Vapi | null>(null)
     const isCallingRef = useRef(false)
 
@@ -63,6 +68,7 @@ const Page = () => {
             setSpeaker(null)
             setCallStatus("ended")
             toast("Interview Ended")
+            generateFeedback()
         }
 
         const handleError = (error: any) => {
@@ -72,11 +78,46 @@ const Page = () => {
             toast.error("Call failed. Please try again.")
         }
 
+        const generateFeedback = async () => {
+            try {
+                const result = await axios.post("/api/ai-feedback", {
+                    conversations: conversation
+                })
+                console.log("result of feedback raw", result);
+                const aiFeedback = result.data.data.feedback;
+
+                if (aiFeedback) {
+                    const { data, error } = await supabase.from("Feedback").insert({
+                        userName: interviwQuestions?.userName,
+                        userEmail: interviwQuestions?.userEmail,
+                        interview_id: interview_id,
+                        feedback: aiFeedback,
+                    }).select();
+                    router.replace(`/interview/${interview_id}/completed`)
+                    if (error) {
+                        console.error("Insert error:", error);
+                    } else {
+                        console.log("Inserted row:", data);
+                    }
+
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        }
         vapi.on("call-start", handleCallStart)
         vapi.on("speech-start", handleSpeechStart)
         vapi.on("speech-end", handleSpeechEnd)
         vapi.on("message", handleMessage)
         vapi.on("call-end", handleCallEnd)
+        vapi.on("message", (message: any) => {
+            if (message?.conversation) {
+                setConversation((prev: any[]) => [
+                    ...prev,
+                    ...message.conversation
+                ]);
+            }
+        });
         vapi.on("error", handleError)
 
         return () => {
@@ -88,6 +129,7 @@ const Page = () => {
             vapi.off("error", handleError)
         }
     }, [])
+
 
     useEffect(() => {
         if (interviwQuestions && vapiRef.current && !isCallingRef.current) {

@@ -1,27 +1,54 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Video } from "lucide-react"
+import supabase from "@/services/superbaseClinet"
+import { useAuth } from "@/app/provider"
+import InterviewCard from "./InterviewCard"
 
 const PreviouslyCreatedInterview = () => {
-    const [previousInterview] = useState([])
+    const { user } = useAuth()
+
+    const [previousInterview, setPreviousInterview] = useState<any[]>([])
+    useEffect(() => {
+        if (user?.email) {
+            getAllInterviewList()
+        }
+    }, [user])
+
+    const getAllInterviewList = async () => {
+        const { data, error } = await supabase
+            .from("Interviews")
+            .select("*")
+            .eq("userEmail", user.email)
+            .order("created_at", { ascending: false })
+            .limit(6)
+
+        if (error) {
+            console.log("Supabase error:", error)
+            return
+        }
+
+        console.log("prevInterview", data)
+        setPreviousInterview(data || [])
+    }
 
     return (
-        <div className="rounded-2xl border bg-white p-6 shadow-sm mt-5">
+        <div className="mt-6">
+
             {/* Header */}
             <div className="mb-6">
-                <h2 className="text-lg font-semibold text-gray-900">
+                <h2 className="text-2xl font-bold text-gray-700">
                     Previously Created Interviews
                 </h2>
-                <p className="text-sm text-gray-500">
-                    Manage and review your past interview sessions.
-                </p>
+
             </div>
 
             {/* Empty State */}
-            {previousInterview.length === 0 && (
-                <div className="flex flex-col items-center justify-center py-8 text-center">
+            {previousInterview?.length === 0 ? (
+                <div className="flex flex-col items-center justify-center py-12 text-center">
+
                     {/* Icon */}
                     <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-50">
                         <Video className="h-7 w-7 text-blue-600" />
@@ -37,12 +64,24 @@ const PreviouslyCreatedInterview = () => {
                         candidates effortlessly.
                     </p>
 
-                    {/* Action */}
-                    <Button className="mt-6">
+                    {/* Button */}
+                    <Button className="mt-6 bg-blue-600 hover:bg-blue-700">
                         Create New Interview
                     </Button>
                 </div>
+            ) : (
+                /* Interview Grid */
+                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                    {previousInterview.map((interview, index) => (
+                        <InterviewCard
+                            key={interview.id}
+                            interview={interview}
+                            index={index}
+                        />
+                    ))}
+                </div>
             )}
+
         </div>
     )
 }

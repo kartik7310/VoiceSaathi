@@ -1,6 +1,6 @@
 "use client"
 import { useAuth } from '@/app/provider'
-import supabase from '@/services/superbaseClinet'
+import supabase from '@/services/supabaseClient'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 import InterviewDetailsContainer from './_components/InterviewDetailsContainer'

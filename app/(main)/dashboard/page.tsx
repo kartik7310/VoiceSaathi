@@ -1,5 +1,4 @@
-import React from 'react'
-import Welcome from './_components/Welcome'
+"use client"
 import CreateOptions from './_components/CreateOptions'
 import PreviouslyCreatedInterview from './_components/PreviouslyCreatedInterview'
 

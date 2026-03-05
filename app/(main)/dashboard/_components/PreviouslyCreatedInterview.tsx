@@ -3,7 +3,8 @@
 import React, { useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Video } from "lucide-react"
-import supabase from "@/services/superbaseClinet"
+import Link from "next/link"
+import supabase from "@/services/supabaseClient"
 import { useAuth } from "@/app/provider"
 import InterviewCard from "./InterviewCard"
 
@@ -35,43 +36,44 @@ const PreviouslyCreatedInterview = () => {
     }
 
     return (
-        <div className="mt-6">
-
-            {/* Header */}
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-700">
-                    Previously Created Interviews
-                </h2>
-
+        <div className="mt-8 md:mt-12">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                    <h2 className="text-xl md:text-2xl font-bold text-gray-900">
+                        Previously Created Interviews
+                    </h2>
+                    <p className="text-sm text-gray-500 mt-1">
+                        Review and manage your past interview setups
+                    </p>
+                </div>
+                {previousInterview?.length > 0 && (
+                    <Link href="/all-interviews">
+                        <Button variant="outline" size="sm" className="w-full sm:w-auto font-semibold">
+                            View All
+                        </Button>
+                    </Link>
+                )}
             </div>
 
-            {/* Empty State */}
             {previousInterview?.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-
-                    {/* Icon */}
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-50">
-                        <Video className="h-7 w-7 text-blue-600" />
+                <div className="flex flex-col items-center justify-center py-16 px-4 text-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+                        <Video className="h-8 w-8" />
                     </div>
-
-                    {/* Text */}
-                    <h3 className="text-base font-medium text-gray-900">
-                        No interviews created yet
+                    <h3 className="text-lg font-bold text-gray-900">
+                        No interviews yet
                     </h3>
-
-                    <p className="mt-2 max-w-sm text-sm text-gray-500">
-                        Start by creating your first AI-driven interview and invite
-                        candidates effortlessly.
+                    <p className="mt-2 max-w-xs text-sm text-gray-500">
+                        Create your first AI-driven interview template to get started with smart hiring.
                     </p>
-
-                    {/* Button */}
-                    <Button className="mt-6 bg-blue-600 hover:bg-blue-700">
-                        Create New Interview
-                    </Button>
+                    <Link href="/dashboard/create-interview" className="mt-6">
+                        <Button className="bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-100 px-8">
+                            Create Now
+                        </Button>
+                    </Link>
                 </div>
             ) : (
-                /* Interview Grid */
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {previousInterview.map((interview, index) => (
                         <InterviewCard
                             key={interview.id}
@@ -81,7 +83,6 @@ const PreviouslyCreatedInterview = () => {
                     ))}
                 </div>
             )}
-
         </div>
     )
 }

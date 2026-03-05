@@ -35,88 +35,95 @@ const FormContainer = ({ onHandleChangeInput, GoToNextStep }: any) => {
         }
     }
     return (
-        <div>
-            <div className="mt-4 rounded-2xl border bg-white p-8 shadow-sm">
-                <div className="space-y-5">
+        <div className="p-4 md:p-8">
+            <div className="space-y-6 md:space-y-8">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* Job Position */}
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">
+                    <div className="space-y-2.5">
+                        <label className="text-sm font-bold text-gray-900 uppercase tracking-tight">
                             Job Position
                         </label>
-                        <Input placeholder="e.g. Full Stack Developer" className="mt-2" onChange={(e) => onHandleChangeInput('jobPosition', e.target.value)} />
-                    </div>
-
-                    {/* Description */}
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">
-                            Job Description
-                        </label>
-                        <Textarea
-                            placeholder="Enter details about the job, responsibilities, and required skills..."
-                            className="min-h-[120px] mt-2"
-                            onChange={(e) => onHandleChangeInput('jobDescription', e.target.value)}
+                        <Input
+                            placeholder="e.g. Full Stack Developer"
+                            className="h-11 md:h-12 border-gray-200 focus:ring-blue-500 rounded-xl"
+                            onChange={(e) => onHandleChangeInput('jobPosition', e.target.value)}
                         />
                     </div>
 
-                    {/* Interview Type */}
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">
-                            Interview Mode
+                    {/* Interview Duration */}
+                    <div className="space-y-2.5">
+                        <label className="text-sm font-bold text-gray-900 uppercase tracking-tight">
+                            Interview Duration
                         </label>
                         <Select onValueChange={(value) => onHandleChangeInput('interviewDuration', value)}>
-                            <SelectTrigger className="w-full mt-2">
-                                <SelectValue placeholder="Select interview Duration" />
+                            <SelectTrigger className="h-11 md:h-12 border-gray-200 rounded-xl">
+                                <SelectValue placeholder="Select duration" />
                             </SelectTrigger>
-
-                            <SelectContent>
+                            <SelectContent className="rounded-xl border-gray-100">
                                 <SelectGroup>
                                     <SelectItem value="5 min">5 min</SelectItem>
                                     <SelectItem value="10 min">10 min</SelectItem>
                                     <SelectItem value="15 min">15 min</SelectItem>
                                     <SelectItem value="20 min">20 min</SelectItem>
-                                    <SelectItem value="25 min">25 min</SelectItem>
                                     <SelectItem value="30 min">30 min</SelectItem>
                                 </SelectGroup>
                             </SelectContent>
                         </Select>
-
-                    </div>
-
-                    <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">
-                            Interview Types
-                        </label>
-
-                        <div className="flex flex-wrap gap-2">
-                            {interviewType.map((item, index) => {
-                                const Icon = item.icon
-                                const active = selected?.find((value) => value === item.title)
-
-                                return (
-                                    <button
-                                        key={index}
-                                        onClick={() => handleInterviewType(item.title)}
-                                        className={`    
-                                             flex items-center gap-2 rounded-full border px-4 py-2 text-sm cursor-pointer
-                                             transition-all
-                                             ${active
-                                                ? "bg-blue-600 text-white border-blue-600"
-                                                : "bg-white text-gray-700 hover:bg-blue-50 hover:border-blue-400 cursor-pointer "
-                                            }
-                                            `}
-                                    >
-                                        <Icon className="h-4 w-4" />
-                                        {item.title}
-                                    </button>
-                                )
-                            })}
-                        </div>
                     </div>
                 </div>
 
-            </div>
-            <div className="flex justify-end mt-3">
-                <Button className="bg-blue-600" onClick={() => GoToNextStep()}>Generate Interview <ArrowRight /></Button>
+                {/* Description */}
+                <div className="space-y-2.5">
+                    <label className="text-sm font-bold text-gray-900 uppercase tracking-tight">
+                        Job Description / Skills
+                    </label>
+                    <Textarea
+                        placeholder="Paste the job description or enter required skills (e.g. React, Node.js, System Design)"
+                        className="min-h-[140px] border-gray-200 rounded-xl focus:ring-blue-500 resize-none p-4"
+                        onChange={(e) => onHandleChangeInput('jobDescription', e.target.value)}
+                    />
+                </div>
+
+                {/* Interview Type Selection */}
+                <div className="space-y-3">
+                    <label className="text-sm font-bold text-gray-900 uppercase tracking-tight">
+                        Focus Areas (Select one or more)
+                    </label>
+                    <div className="flex flex-wrap gap-2.5">
+                        {interviewType.map((item, index) => {
+                            const Icon = item.icon
+                            const active = selected?.find((value) => value === item.title)
+
+                            return (
+                                <button
+                                    key={index}
+                                    onClick={() => handleInterviewType(item.title)}
+                                    className={`    
+                                         flex items-center gap-2.5 rounded-xl border px-5 py-2.5 text-sm font-semibold transition-all duration-200
+                                         ${active
+                                            ? "bg-blue-600 text-white border-blue-600 shadow-lg shadow-blue-100"
+                                            : "bg-white text-gray-600 border-gray-100 hover:border-blue-400 hover:bg-blue-50/50"
+                                        }
+                                    `}
+                                >
+                                    <Icon className={`h-4 w-4 ${active ? "text-white" : "text-blue-500"}`} />
+                                    {item.title}
+                                </button>
+                            )
+                        })}
+                    </div>
+                </div>
+
+                {/* Submit Action */}
+                <div className="pt-4 flex flex-col sm:flex-row justify-end gap-3 border-t border-gray-50 mt-8">
+                    <Button
+                        className="h-12 px-8 bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-100 rounded-xl font-bold group"
+                        onClick={() => GoToNextStep()}
+                    >
+                        Generate Interview Questions
+                        <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    </Button>
+                </div>
             </div>
         </div>
     )

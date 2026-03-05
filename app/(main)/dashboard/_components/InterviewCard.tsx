@@ -19,51 +19,69 @@ const InterviewCard = ({ interview, index, viewDetails = false }: { interview: a
             `mailto:?subject=Interview Invitation&body=Please attend the interview using this link: ${url}`
     }
     return (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 gap-3">
-            <div className="flex justify-between items-start ">
+        <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 md:p-5 flex flex-col gap-4 hover:shadow-md transition-shadow">
+            <div className="flex justify-between items-start">
                 <div className="flex items-center gap-2">
-                    <img
-                        src="/google-icon.png"
-                        alt="logo"
-                        className="w-6 h-6"
-                    />
+                    <div className="p-1.5 bg-gray-50 rounded-md border border-gray-100">
+                        <img
+                            src="/google-icon.png"
+                            alt="logo"
+                            className="w-5 h-5 md:w-6 md:h-6"
+                        />
+                    </div>
+                    <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100">
+                        Google
+                    </span>
                 </div>
 
-                <p className="text-sm text-gray-500">
-                    {moment(new Date(interview.created_at)).format('YYYY-MM-DD')}
+                <p className="text-xs md:text-sm text-gray-400 font-medium">
+                    {moment(new Date(interview.created_at)).format('MMM DD, YYYY')}
                 </p>
             </div>
 
-            <h3 className="mt-4 text-lg font-semibold text-gray-900">
-                {interview.jobPosition}
-
-            </h3>
-
-
-            <div className='flex justify-between'>
-                <p className="text-gray-500 text-sm ">
-                    {interview.interviewDuration}
-                </p>
-                <span className='text-green font-semibold text-green-500'>{interview?.Feedback?.length} Candidates</span>
+            <div className="space-y-1">
+                <h3 className="text-base md:text-lg font-bold text-gray-900 line-clamp-1">
+                    {interview.jobPosition}
+                </h3>
+                <div className='flex items-center gap-2'>
+                    <span className="text-xs text-gray-500 bg-blue-50 text-blue-700 px-2 py-0.5 rounded-full font-medium">
+                        {interview.interviewDuration} min
+                    </span>
+                    <span className='text-xs font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full'>
+                        {interview?.Feedback?.length || 0} Candidates
+                    </span>
+                </div>
             </div>
 
-            {!viewDetails ? <div className="flex gap-3 mt-5">
 
-                <button onClick={copyToClipboard} className="flex items-center cursor-pointer gap-2 border border-gray-300 rounded-lg px-4 py-2 text-sm hover:bg-gray-50">
-                    <Copy size={16} />
-                    Copy Link
-                </button>
+            {!viewDetails ? (
+                <div className="flex flex-col sm:flex-row gap-2 mt-2">
+                    <button
+                        onClick={copyToClipboard}
+                        className="flex-1 flex items-center justify-center cursor-pointer gap-2 border border-gray-200 rounded-lg py-2.5 text-xs md:text-sm font-medium text-gray-600 hover:bg-gray-50 active:bg-gray-100 transition-colors"
+                    >
+                        <Copy size={16} />
+                        Copy Link
+                    </button>
 
-                <button onClick={sendInterviewLink} className="flex items-center cursor-pointer gap-2 bg-blue-600 text-white rounded-lg px-4 py-2 text-sm hover:bg-blue-700">
-                    <Send size={16} />
-                    Send
-                </button>
-
-            </div> : <div>
-                <Link href={`/schedule-interview/${interview.interview_id}/details`}>
-                    <Button className='w-full mt-2 cursor-pointer' variant={"outline"}>View Details<ArrowRight /></Button>
-                </Link>
-            </div>}
+                    <button
+                        onClick={sendInterviewLink}
+                        className="flex-1 flex items-center justify-center cursor-pointer gap-2 bg-blue-600 text-white rounded-lg py-2.5 text-xs md:text-sm font-medium hover:bg-blue-700 active:bg-blue-800 transition-colors shadow-sm shadow-blue-100"
+                    >
+                        <Send size={16} />
+                        Send Link
+                    </button>
+                </div>
+            ) : (
+                <div className="mt-2">
+                    <Link href={`/schedule-interview/${interview.interview_id}/details`} className="w-full">
+                        <Button className='w-full cursor-pointer h-10 md:h-11 font-semibold group' variant={"outline"}>
+                            View Details
+                            <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                        </Button>
+                    </Link>
+                </div>
+            )}
 
         </div>
     )

@@ -1,6 +1,6 @@
 "use client"
 import React, { useContext, useEffect, useState } from 'react'
-import supabase from '@/services/superbaseClinet'
+import supabase from '@/services/supabaseClient'
 import UserDetailsContext from '@/context/UserDetailsContext'
 
 const Provider = ({ children }: { children: React.ReactNode }) => {

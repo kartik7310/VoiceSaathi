@@ -9,10 +9,12 @@ const DashboardProvider = ({ children }: { children: React.ReactNode }) => {
     return (
         <SidebarProvider >
             <Appsidebar />
-            <div className=' w-full p-8'>
-                {/* <SidebarTrigger /> */}
-                <Welcome />
-                {children}
+            <div className='w-full'>
+                <div className='p-4 md:p-8'>
+                    <SidebarTrigger className='mb-4 md:hidden' />
+                    <Welcome />
+                    {children}
+                </div>
             </ div>
         </SidebarProvider>
     )

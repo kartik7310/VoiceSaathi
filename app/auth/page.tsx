@@ -7,6 +7,9 @@ export default function Page() {
     const singIn = async () => {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: "google",
+            options: {
+                redirectTo: `${window.location.origin}/auth/callback`,
+            },
         });
         if (error) {
             console.log(error.message)
@@ -41,7 +44,7 @@ export default function Page() {
                 </div>
 
                 {/* Button */}
-                <Button className="w-full mt-6 h-11 text-base font-medium" onClick={singIn}>
+                <Button className="w-full mt-6 h-11 text-base cursor-pointer font-medium" onClick={singIn}>
                     Sign in with Google
                 </Button>
 

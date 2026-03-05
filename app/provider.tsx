@@ -30,8 +30,18 @@ const Provider = ({ children }: { children: React.ReactNode }) => {
             }
         })
     }
+    const logout = async () => {
+        const { error } = await supabase.auth.signOut()
+
+        if (error) {
+            console.error(error.message)
+            return
+        }
+
+        window.location.href = "/login"
+    }
     return (
-        <UserDetailsContext.Provider value={{ user, setUser }}>
+        <UserDetailsContext.Provider value={{ user, setUser, logout }}>
             <div>{children}</div>
         </UserDetailsContext.Provider>
     )

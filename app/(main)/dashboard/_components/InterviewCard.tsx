@@ -19,8 +19,8 @@ const InterviewCard = ({ interview, index, viewDetails = false }: { interview: a
             `mailto:?subject=Interview Invitation&body=Please attend the interview using this link: ${url}`
     }
     return (
-        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 w-80">
-            <div className="flex justify-between items-start">
+        <div className="bg-white rounded-xl border border-gray-200 shadow-sm p-5 gap-3">
+            <div className="flex justify-between items-start ">
                 <div className="flex items-center gap-2">
                     <img
                         src="/google-icon.png"

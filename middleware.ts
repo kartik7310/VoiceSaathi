@@ -30,8 +30,9 @@ export async function middleware(request: NextRequest) {
     } = await supabase.auth.getUser()
 
     const isAuthPage = request.nextUrl.pathname.startsWith("/auth")
+    const isLandingPage = request.nextUrl.pathname === "/"
 
-    if (!user && !isAuthPage) {
+    if (!user && !isAuthPage && !isLandingPage) {
         return NextResponse.redirect(new URL("/auth", request.url))
     }
 
@@ -43,5 +44,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-    matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
+    matcher: ["/((?!api|_next/static|_next/image|favicon.ico|login.webp).*)"],
 }

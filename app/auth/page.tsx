@@ -1,10 +1,10 @@
 "use client"
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
-import supabase from "@/services/superbaseClinet";
+import supabase from "@/services/supabaseClient";
 
 export default function Page() {
-    const singIn = async () => {
+    const signIn = async () => {
         const { error } = await supabase.auth.signInWithOAuth({
             provider: "google",
             options: {
@@ -12,7 +12,7 @@ export default function Page() {
             },
         });
         if (error) {
-            console.log(error.message)
+            console.error(error.message)
         }
     }
     return (
@@ -44,7 +44,7 @@ export default function Page() {
                 </div>
 
                 {/* Button */}
-                <Button className="w-full mt-6 h-11 text-base cursor-pointer font-medium" onClick={singIn}>
+                <Button className="w-full mt-6 h-11 text-base cursor-pointer font-medium" onClick={signIn}>
                     Sign in with Google
                 </Button>
 

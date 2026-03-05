@@ -19,7 +19,6 @@ const CreateInterview = () => {
             [fields]: value,
         }))
     }
-    console.log("formData", formData);
 
     const GoToNextStep = () => {
         if (!formData.jobPosition || !formData.jobDescription || !formData.interviewDuration || !formData.interviewType) {

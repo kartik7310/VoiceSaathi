@@ -9,17 +9,17 @@ export const sidebarMenu = [
     {
         title: "Shedule Interview",
         icon: Calendar,
-        path: "/interview",
+        path: "/schedule-interview",
     },
     {
         title: "All Interview",
         icon: List,
-        path: "/interview",
+        path: "/all-interviews",
     },
     {
         title: "Billing",
         icon: WalletCards,
-        path: "/interview",
+        path: "/billing",
     },
     {
         title: "Settings",

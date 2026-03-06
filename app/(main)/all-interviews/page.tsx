@@ -2,9 +2,10 @@
 import { useAuth } from "@/app/provider"
 import InterviewCard from "../dashboard/_components/InterviewCard"
 import { useEffect, useState } from "react"
-import supabase from "@/services/superbaseClinet"
+import supabase from "@/services/supabaseClient"
 import { Button } from "@/components/ui/button"
 import { Video } from "lucide-react"
+import Link from "next/link"
 
 const AllInterviews = () => {
     const { user } = useAuth()
@@ -34,43 +35,35 @@ const AllInterviews = () => {
     }
 
     return (
-        <div className="mt-6">
-
-            {/* Header */}
-            <div className="mb-6">
-                <h2 className="text-2xl font-bold text-gray-700">
+        <div className="space-y-6">
+            <div>
+                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
                     Previously Created Interviews
                 </h2>
-
+                <p className="text-sm md:text-base text-gray-500 mt-1">
+                    Manage and review all your AI-driven interview modules
+                </p>
             </div>
 
-            {/* Empty State */}
             {previousInterview?.length === 0 ? (
-                <div className="flex flex-col items-center justify-center py-12 text-center">
-
-                    {/* Icon */}
-                    <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-blue-50">
-                        <Video className="h-7 w-7 text-blue-600" />
+                <div className="flex flex-col items-center justify-center py-16 px-4 text-center bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
+                    <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-blue-50 text-blue-600">
+                        <Video className="h-8 w-8" />
                     </div>
-
-                    {/* Text */}
-                    <h3 className="text-base font-medium text-gray-900">
+                    <h3 className="text-lg font-bold text-gray-900">
                         No interviews created yet
                     </h3>
-
-                    <p className="mt-2 max-w-sm text-sm text-gray-500">
-                        Start by creating your first AI-driven interview and invite
-                        candidates effortlessly.
+                    <p className="mt-2 max-w-xs text-sm text-gray-500">
+                        Start by creating your first AI-driven interview module to begin evaluating candidates smarter.
                     </p>
-
-                    {/* Button */}
-                    <Button className="mt-6 bg-blue-600 hover:bg-blue-700">
-                        Create New Interview
-                    </Button>
+                    <Link href="/dashboard/create-interview" className="mt-6">
+                        <Button className="bg-blue-600 hover:bg-blue-700 shadow-md shadow-blue-100">
+                            Create Module
+                        </Button>
+                    </Link>
                 </div>
             ) : (
-                /* Interview Grid */
-                <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
                     {previousInterview.map((interview, index) => (
                         <InterviewCard
                             key={interview.id}
@@ -80,7 +73,6 @@ const AllInterviews = () => {
                     ))}
                 </div>
             )}
-
         </div>
     )
 }

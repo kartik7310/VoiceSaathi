@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { Plus, Video } from "lucide-react"
+import { Mic, Plus, Video } from "lucide-react"
 import { usePathname } from "next/navigation"
 
 import { Button } from "@/components/ui/button"
@@ -32,10 +32,10 @@ const AppSidebar = () => {
             <SidebarHeader className="p-6 space-y-6">
                 <div className="flex items-center gap-3 px-2">
                     <div className="h-10 w-10 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200">
-                        <Video className="text-white h-5 w-5" />
+                        <Mic className="text-white h-5 w-5" />
                     </div>
                     <h2 className="text-xl font-extrabold text-gray-900 tracking-tight">
-                        AIcruiter
+                        VoiceSaathi
                     </h2>
                 </div>
 

@@ -21,11 +21,7 @@ export const sidebarMenu = [
         icon: WalletCards,
         path: "/billing",
     },
-    {
-        title: "Settings",
-        icon: Settings,
-        path: "/settings",
-    },
+
 ]
 
 export const interviewType = [

@@ -4,6 +4,8 @@ import React from "react"
 import CandidateFeedbackDialog from "./CandidateFeedbackDialog"
 
 const CandidatesList = ({ candidateInformation }: { candidateInformation: any }) => {
+    console.log("candidateInformation", candidateInformation);
+
     return (
         <div className="mt-4 bg-white  ">
 

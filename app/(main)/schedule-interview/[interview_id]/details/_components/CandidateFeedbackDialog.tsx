@@ -11,7 +11,7 @@ import { Progress } from "@/components/ui/progress"
 import moment from "moment"
 
 const CandidateFeedbackDialog = ({ candidateInformation }: { candidateInformation: any }) => {
-
+    console.log("candidateInformation", candidateInformation)
     const candidate = candidateInformation?.[0]
     const feedback = candidate?.feedback
     const rating = feedback?.rating

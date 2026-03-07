@@ -43,13 +43,14 @@ export default function JoinInterviewPage() {
             setLoading(true)
             const { data, error } = await supabase
                 .from('Interviews')
-                .select("questions")
+                .select("questions ,jobPosition")
                 .eq('interview_id', interview_id)
             if (data) {
                 setInterviwQuestions({
                     questionList: data[0],
                     userName: userName,
-                    userEmail: userEmail
+                    userEmail: userEmail,
+                    jobPosition: data[0].jobPosition
                 })
             }
             setLoading(false)

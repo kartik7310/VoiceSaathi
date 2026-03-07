@@ -3,6 +3,7 @@ import moment from "moment"
 import React from "react"
 
 const InterviewDetailsContainer = ({ interview }: { interview: any }) => {
+    console.log("interviewDetailsContainer interview", interview);
 
     // safely parse interview types
     let interviewTypes: string[] = []
@@ -68,10 +69,7 @@ const InterviewDetailsContainer = ({ interview }: { interview: any }) => {
                 <h3 className="text-xl font-bold mb-1">Job Description</h3>
 
                 <p className="text-gray-600 text-sm leading-relaxed border-b pb-2">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore,
-                    officiis sequi? Minus sed maxime odio possimus fugiat error facere
-                    ex, praesentium architecto id placeat neque iste odit sapiente
-                    distinctio excepturi?
+                    {interview?.jobDescription}
                 </p>
             </div>
 

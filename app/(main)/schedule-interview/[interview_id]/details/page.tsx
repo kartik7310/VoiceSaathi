@@ -17,7 +17,7 @@ const InterviewDetails = () => {
     const getInterviewDetails = async () => {
         const { data, error } = await supabase
             .from("Interviews")
-            .select("jobPosition, interviewDuration,interviewType ,interview_id ,questions,created_at ,Feedback(*)")
+            .select("jobPosition, interviewDuration,interviewType ,jobDescription,interview_id ,questions,created_at ,Feedback(*)")
             .eq("userEmail", user?.email)
             .eq("interview_id", interview_id)
 

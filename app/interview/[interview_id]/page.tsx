@@ -84,7 +84,6 @@ export default function JoinInterviewPage() {
                             height={300}
                         />
                     </div>
-                    {/* Interview Title */}
                     <div className="text-center space-y-2">
                         <h2 className="text-lg font-semibold">
                             {interview?.jobPosition}

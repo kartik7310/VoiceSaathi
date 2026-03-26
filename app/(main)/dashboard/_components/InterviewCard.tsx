@@ -22,15 +22,8 @@ const InterviewCard = ({ interview, index, viewDetails = false }: { interview: a
         <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-4 md:p-5 flex flex-col gap-4 hover:shadow-md transition-shadow">
             <div className="flex justify-between items-start">
                 <div className="flex items-center gap-2">
-                    <div className="p-1.5 bg-gray-50 rounded-md border border-gray-100">
-                        <img
-                            src="/google-icon.png"
-                            alt="logo"
-                            className="w-5 h-5 md:w-6 md:h-6"
-                        />
-                    </div>
-                    <span className="text-xs font-medium text-gray-400 bg-gray-50 px-2 py-0.5 rounded-full border border-gray-100">
-                        Google
+                    <span className="text-xs font-medium text-gray-500 bg-gray-50 px-2 py-0.5 rounded-md border border-gray-200">
+                        Interview
                     </span>
                 </div>
 

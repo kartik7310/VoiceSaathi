@@ -32,12 +32,12 @@ const CreateInterview = () => {
         setStep(step + 1);
     }
     return (
-        <div className='mt-5 px-8 md:px-20 lg:px-30 xl:px-40'>
-            <div className='flex items-center gap-2 p-5'>
-                <ArrowLeft onClick={() => router.back()} className='cursor-pointer' />
-                <h2 className='text-xl'>Create Interview</h2>
+        <div className='mt-5'>
+            <div className='flex items-center gap-2 py-5'>
+                <ArrowLeft onClick={() => router.back()} className='cursor-pointer hover:text-blue-600 transition-colors' />
+                <h2 className='text-xl font-bold'>Create Interview</h2>
             </div>
-            <Progress value={step * 33} />
+            <Progress value={step * 33} className="mb-6" />
             {step == 1 ? <FormContainer onHandleChangeInput={onHandleChangeInput}
 
                 GoToNextStep={GoToNextStep}

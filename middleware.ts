@@ -1,4 +1,4 @@
-import { createServerClient } from "@supabase/ssr"
+import { createServerClient, type CookieOptions } from "@supabase/ssr"
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 
@@ -14,12 +14,42 @@ export async function middleware(request: NextRequest) {
         process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
         {
             cookies: {
-                get: (name) => request.cookies.get(name)?.value,
-                set: (name, value, options) => {
-                    response.cookies.set({ name, value, ...options })
+                get(name: string) {
+                    return request.cookies.get(name)?.value
                 },
-                remove: (name, options) => {
-                    response.cookies.set({ name, value: "", ...options })
+                set(name: string, value: string, options: CookieOptions) {
+                    request.cookies.set({
+                        name,
+                        value,
+                        ...options,
+                    })
+                    response = NextResponse.next({
+                        request: {
+                            headers: request.headers,
+                        },
+                    })
+                    response.cookies.set({
+                        name,
+                        value,
+                        ...options,
+                    })
+                },
+                remove(name: string, options: CookieOptions) {
+                    request.cookies.set({
+                        name,
+                        value: "",
+                        ...options,
+                    })
+                    response = NextResponse.next({
+                        request: {
+                            headers: request.headers,
+                        },
+                    })
+                    response.cookies.set({
+                        name,
+                        value: "",
+                        ...options,
+                    })
                 },
             },
         }

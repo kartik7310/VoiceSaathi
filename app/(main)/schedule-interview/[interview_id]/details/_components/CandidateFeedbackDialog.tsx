@@ -22,7 +22,7 @@ const CandidateFeedbackDialog = ({ candidateInformation }: { candidateInformatio
         <Dialog>
 
             <DialogTrigger asChild>
-                <Button variant="outline" className="bg-blue-500 text-white hover:bg-blue-600">
+                <Button variant="outline" className="bg-blue-500 cursor-pointer text-white hover:bg-blue-600">
                     View Report
                 </Button>
             </DialogTrigger>
@@ -62,7 +62,7 @@ const CandidateFeedbackDialog = ({ candidateInformation }: { candidateInformatio
                                     {rating?.technicalSkills}/10
                                 </span>
                             </p>
-                            <Progress value={(rating?.technicalSkills || 0) * 10} />
+                            <Progress value={(Number(rating?.technicalSkills) || 0) * 10} />
                         </div>
 
                         <div>
@@ -72,7 +72,7 @@ const CandidateFeedbackDialog = ({ candidateInformation }: { candidateInformatio
                                     {rating?.communication}/10
                                 </span>
                             </p>
-                            <Progress value={(rating?.communication || 0) * 10} />
+                            <Progress value={(Number(rating?.communication) || 0) * 10} />
                         </div>
 
                         <div>
@@ -82,7 +82,7 @@ const CandidateFeedbackDialog = ({ candidateInformation }: { candidateInformatio
                                     {rating?.problemSolving}/10
                                 </span>
                             </p>
-                            <Progress value={(rating?.problemSolving || 0) * 10} />
+                            <Progress value={(Number(rating?.problemSolving) || 0) * 10} />
                         </div>
 
                         <div>
@@ -92,7 +92,7 @@ const CandidateFeedbackDialog = ({ candidateInformation }: { candidateInformatio
                                     {rating?.experience}/10
                                 </span>
                             </p>
-                            <Progress value={(rating?.experience || 0) * 10} />
+                            <Progress value={(Number(rating?.experience) || 0) * 10} />
                         </div>
 
                     </div>
@@ -116,7 +116,6 @@ const CandidateFeedbackDialog = ({ candidateInformation }: { candidateInformatio
                         <p>{feedback?.RecommendationMsg}</p>
                     </div>
 
-                    <Button>Download Report</Button>
                 </div>
 
             </DialogContent>

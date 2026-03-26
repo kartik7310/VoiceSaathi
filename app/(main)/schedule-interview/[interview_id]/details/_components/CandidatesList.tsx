@@ -42,7 +42,24 @@ const CandidatesList = ({ candidateInformation }: { candidateInformation: any })
 
                         </div>
                         <div className="flex gap-4 items-center ">
-                            <h2 className="text-lg text-blue-700 font-semibold ">6/10</h2>
+                            <h2 className="text-lg text-blue-700 font-semibold ">
+                                {(() => {
+                                    const rating = user?.feedback?.rating;
+                                    if (!rating) return "N/A";
+                                    
+                                    const scores = [
+                                        Number(rating.technicalSkills),
+                                        Number(rating.communication),
+                                        Number(rating.problemSolving),
+                                        Number(rating.experience)
+                                    ].filter(n => !isNaN(n));
+                                    
+                                    if (scores.length === 0) return "N/A";
+                                    
+                                    const average = scores.reduce((a, b) => a + b, 0) / scores.length;
+                                    return `${average.toFixed(1)}/10`;
+                                })()}
+                            </h2>
                             <CandidateFeedbackDialog candidateInformation={candidateInformation} />
 
                         </div>

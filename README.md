@@ -27,9 +27,8 @@ Interview anxiety and a lack of constructive feedback are the biggest hurdles fo
 
 - **Eliminating Anxiety**: Practice as many times as you want until you feel confident.
 - **Realistic Simulation**: Uses advanced Voice AI (Vapi) to create natural-sounding conversations.
-- **Data-Driven Feedback**: Receive instant, AI-generated scores and detailed suggestions on your body language (tone), technical accuracy, and communication.  
+- **Data-Driven Feedback**: Receive instant, AI-generated scores and detailed suggestions on your body language (tone), technical accuracy, and communication.
 - **Tailored Experience**: Every interview is customized based on the specific job description you provide.
-
 ---
 
 ## 🛠️ Tech Stack

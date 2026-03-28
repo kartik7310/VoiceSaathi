@@ -7,8 +7,10 @@ import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
+    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import Link from "next/link"
 
 const Welcome = () => {
     const { user, logout } = useAuth()
@@ -45,6 +47,12 @@ const Welcome = () => {
                         <div className="px-2 py-1.5 text-xs font-semibold text-muted-foreground uppercase tracking-wider">
                             My Account
                         </div>
+                        <DropdownMenuSeparator />
+                        <Link href="/profile">
+                            <DropdownMenuItem className="cursor-pointer hover:bg-blue-50 focus:bg-blue-50">
+                                Profile
+                            </DropdownMenuItem>
+                        </Link>
                         <DropdownMenuItem
                             onClick={logout}
                             className="cursor-pointer text-red-600 focus:text-red-600 focus:bg-red-50"

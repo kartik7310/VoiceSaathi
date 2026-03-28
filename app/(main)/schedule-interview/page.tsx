@@ -28,7 +28,7 @@ const ScheduleInterview = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h2 className='text-2xl md:text-3xl font-bold text-gray-900'>Scheduled Interviews</h2>
+                <h2 className='text-2xl md:text-3xl font-bold text-gray-900 mt-4'>Scheduled Interviews</h2>
                 <p className='text-sm md:text-base text-gray-500 mt-1'>View and track interviews scheduled with candidates</p>
             </div>
 

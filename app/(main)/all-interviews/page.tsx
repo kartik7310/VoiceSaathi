@@ -30,14 +30,14 @@ const AllInterviews = () => {
             return
         }
 
-        console.log("prevInterview ", data)
+
         setPreviousInterview(data || [])
     }
 
     return (
         <div className="space-y-6">
             <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
+                <h2 className="text-2xl md:text-3xl font-bold mt-2 text-gray-900">
                     Previously Created Interviews
                 </h2>
                 <p className="text-sm md:text-base text-gray-500 mt-1">

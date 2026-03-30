@@ -50,20 +50,7 @@ Interview anxiety and a lack of constructive feedback are the biggest hurdles fo
 
 ---
 
-## 🏗️ System Architecture
 
-```mermaid
-graph TD;
-    User([User / Candidate]) -->|Interacts via Browser| UI[Next.js Frontend]
-    User -->|Voice Audio Stream| Vapi[Vapi AI Voice Engine]
-    
-    UI -->|Authenticates & Fetches Data| Supabase[(Supabase Auth & DB)]
-    UI -->|API Calls| Backend[Next.js API Routes]
-    
-    Backend -->|Fast LLM Inference| Groq[Groq AI]
-    Backend -->|Stores Interview Results| Supabase
-    Vapi -->|Transcribes & Responds| User
-```
 
 1. **User Interface (Frontend)**: Built with Next.js 15+ App Router, styled using Tailwind CSS and Shadcn/UI for a highly interactive and responsive application.
 2. **Authentication & Database (Backend)**: Powered by Supabase to handle secure user authentication, session management, and storing interview data (questions, transcripts, and feedback ratings) in a PostgreSQL database.

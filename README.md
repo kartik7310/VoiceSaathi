@@ -13,9 +13,9 @@
 
 ---
 
-## 🧐 What is VoiceSaathi?
+##  What is VoiceSaathi?
 
-**VoiceSaathi** is a cutting-edge, AI-driven mock interview platform designed to help job seekers master their interview skills. It provides a realistic, low-pressure environment where candidates can practice technical and behavioral interviews using **real-time voice AI**. 
+**VoiceSaathi** is a cutting-edge, AI-driven mock interview platform designed to help students master their interview skills. It provides a realistic, low-pressure environment where candidates can practice technical and behavioral interviews using **real-time voice AI**. 
 
 Unlike traditional platforms that rely on text-based chat, VoiceSaathi simulates a real human conversation, allowing you to speak, listen, and react just as you would in a real interview.
 
@@ -82,7 +82,7 @@ mock-interview/
 
 ---
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### 1. Prerequisite
 - Node.js 18+

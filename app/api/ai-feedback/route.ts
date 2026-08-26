@@ -1,4 +1,4 @@
-import { FEEDBACK_PROMPT } from '@/services/constants';
+import { FEEDBACK_PROMPT, extractJSON } from '@/services/constants';
 import { NextResponse } from 'next/server';
 import OpenAI from 'openai';
 export async function POST(req: Request) {
@@ -24,7 +24,8 @@ export async function POST(req: Request) {
             baseURL: "https://api.groq.com/openai/v1",
         });
         const completion = await client.chat.completions.create({
-            model: "llama-3.1-8b-instant",
+            model: "groq/compound",
+            response_format: { type: "json_object" },
             messages: [
                 {
                     role: "system",
@@ -39,10 +40,18 @@ export async function POST(req: Request) {
             temperature: 0.3,
         });
         const raw = completion.choices[0]?.message?.content || "";
+        const cleanJSON = extractJSON(raw);
+
+        if (!cleanJSON) {
+            return NextResponse.json(
+                { error: "JSON not found in AI response", raw },
+                { status: 500 }
+            );
+        }
 
         let parsed;
         try {
-            parsed = JSON.parse(raw);
+            parsed = JSON.parse(cleanJSON);
         } catch {
             return NextResponse.json(
                 { error: "Invalid JSON from AI", raw },

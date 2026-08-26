@@ -14,7 +14,8 @@ export async function POST(req: Request) {
             baseURL: "https://api.groq.com/openai/v1",
         });
         const completion = await client.chat.completions.create({
-            model: "llama-3.1-8b-instant",
+            model: "groq/compound",
+            response_format: { type: "json_object" },
             messages: [
                 {
                     role: "system",
